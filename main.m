@@ -7,8 +7,8 @@ function main(img)
 
 
 
-    LABELS_PATH         = './labels_modelA.txt'; 
-    KERAS_MODEL_PATH    = './modelA.h5'; %CNN model created by keras
+    LABELS_PATH         = './models/labels_modelA.txt'; 
+    KERAS_MODEL_PATH    = './models/modelA.h5'; %CNN model created by keras
     TEST_IMG            = img;
     SIZE_W              = 32;
     SIZE_H              = 32;
@@ -26,7 +26,6 @@ function main(img)
     %traverse the graph to generate logical ordering of symbols
     values = {};
     values = traverse(graph,1,values);
-    fid = fopen('output.txt','w');
     
 
     %classify each symbol
@@ -39,20 +38,12 @@ function main(img)
             img  = im2uint8(img);
             l    = classify(network, img);
             fprintf('%s ', labels(l).symbol);
-            fprintf(fid,'%s',labels(l).symbol);
           
         else
             fprintf('%s', values{i});
-            fprintf(fid,'%s',values{i});
         end
            
     end
-
-    fprintf('\n\n');
-    
-    
-    
-    fclose(fid);
 end
 
 
